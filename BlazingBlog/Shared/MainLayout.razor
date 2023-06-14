@@ -1,19 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>BlazingBlog</PageTitle>
+<PageTitle>Blazing Blog</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+<div class="page d-flex flex-column">    
+    <div class="container-fluid bg-purple">
+        <TopNavBar />
     </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    <div class="container-fluid flex-grow-1">
+        @Body
+    </div>
+    <footer class="fixed-bottom text-center d-flex align-items-center justify-content-center footer">
+        <p class="mb-0 py-2">Blog App built using Blazor Server by <strong>Abhay Prince</strong></p>
+    </footer>
 </div>
