@@ -1,6 +1,7 @@
 ﻿@page "/login"
 @using BlazingBlog.Models;
 
+@inject BlogAuthenticationStateProvider BlogAuthStateProvider
 @inject NavigationManager NavigationManager
 
 @if (_isProcessing)
@@ -26,7 +27,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
-                    <InputText typeof="password" @bind-Value="_model.Password" class="form-control" placeholder="Enter password" />
+                    <InputText type="password" @bind-Value="_model.Password" class="form-control" placeholder="Enter password" />
                     <ValidationMessage For="()=> _model.Password" />
                 </div>
 
@@ -54,15 +55,30 @@
         _isProcessing = true;
         try
         {
-            await Task.Delay(5000);
-            //throw new Exception("test exception");
-            NavigationManager.NavigateTo("/");
+            _error = await BlogAuthStateProvider.LoginAsync(_model);
+            if (!string.IsNullOrWhiteSpace(_error))
+            {
+                _isProcessing = false;
+            }
+            else
+            {
+                var loggedInUser = BlogAuthStateProvider.LoggedInUser;
+                if (loggedInUser.IsEmpty)
+                {
+                    _error = "Could not log in. Please try again";
+                    _isProcessing = false;
+                }
+                else
+                {
+                    // Successflu login
+                    NavigationManager.NavigateTo("/");
+                }
+            }
         }
         catch (Exception ex)
         {
             _isProcessing = false;
             _error = ex.Message;
-            //throw;
         }
     }
 }
