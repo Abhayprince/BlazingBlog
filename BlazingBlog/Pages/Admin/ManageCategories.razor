@@ -16,6 +16,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Slug</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -45,6 +46,9 @@
                         <td>@category.Id</td>
                         <td>@category.Name</td>
                         <td>@category.Slug</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-sm" @onclick="()=> EditCategoryAsync(category)">Edit</button>
+                        </td>
                     </tr>
                     sno++;
             }
@@ -53,7 +57,9 @@
     </table>
 </div>
 <dialog id="@_categoryFormDialogId">
-    <SaveCategoryForm OnSaveCategory="OnSaveCategory" OnCloseForm="CloseCategoryFormAsync" />
+    <SaveCategoryForm Category="_categoryModel" 
+                    OnSaveCategory="OnSaveCategory" 
+                    OnCloseForm="CloseCategoryFormAsync" />
 </dialog>
 <style type="text/css">
     dialog{
@@ -66,6 +72,8 @@
     private const string _categoryFormDialogId = "category-form";
     private bool _loading = false;
     private IEnumerable<Category>? _categories = null;
+
+    private Category _categoryModel = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -88,8 +96,17 @@
     private async Task OpenCategoryFormAsync() =>
         await Js.InvokeVoidAsync("window.openModal", _categoryFormDialogId);
 
-    private async Task CloseCategoryFormAsync() => 
+    private async Task CloseCategoryFormAsync()
+    {
+        _categoryModel = new();
         await Js.InvokeVoidAsync("window.closeModal", _categoryFormDialogId);
+    }
+
+    private async Task EditCategoryAsync(Category category)
+    {
+        _categoryModel = category.Clone();
+        await OpenCategoryFormAsync();
+    }
 
     private async Task OnSaveCategory(MethodResult saveCategoryResult)
     {

@@ -13,5 +13,7 @@ namespace BlazingBlog.Data.Entities
 
         [Required, MaxLength(125), Unicode(false)]
         public string Slug { get; set; }
+
+        public Category Clone() => (Category)this.MemberwiseClone();
     }
 }
