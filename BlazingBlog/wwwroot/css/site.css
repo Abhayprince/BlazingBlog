@@ -70,3 +70,6 @@ a, .btn-link {
 :root {
     --color-purple: #3a0647;
 }
+.bg-purple{
+    background-color: var(--color-purple);
+}

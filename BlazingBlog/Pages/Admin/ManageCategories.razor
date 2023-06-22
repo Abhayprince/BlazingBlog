@@ -1,0 +1,105 @@
+﻿@page "/admin/manage-categories"
+
+@inject IJSRuntime Js
+@inject CategoryService CategoryService
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Manage Categories</h3>
+        <button class="btn btn-primary btn-sm">+ Add new Category</button>
+    </div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_loading)
+            {
+                <tr>
+                    <td colspan="4">
+                        Loading categories...
+                    </td>
+                </tr>
+            }
+            else if(!_loading && (_categories is null || !_categories.Any()))
+            {
+                <tr>
+                    <td colspan="4">
+                        No categories found.
+                    </td>
+                </tr>
+            }
+            else
+            {
+                int sno = 1;
+                foreach (var category in _categories)
+                {
+                    <tr>
+                        <td>@sno</td>
+                        <td>@category.Id</td>
+                        <td>@category.Name</td>
+                        <td>@category.Slug</td>
+                    </tr>
+                    sno++;
+            }
+            }
+        </tbody>
+    </table>
+</div>
+<dialog open>
+    <SaveCategoryForm OnSaveCategory="OnSaveCategory" />
+</dialog>
+<style type="text/css">
+    dialog{
+        padding: 0;
+        border: 2px solid var(--color-purple);
+    }    
+</style>
+
+@code {
+    private bool _loading = false;
+    private IEnumerable<Category>? _categories = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategoriesAsync();
+    }
+
+    private async Task LoadCategoriesAsync()
+    {
+        _loading = true;
+        try
+        {
+            _categories = await CategoryService.GetCategoriesAsync();
+        }
+        finally
+        {
+            _loading = false;
+        }
+    }
+
+    private async Task OnSaveCategory(MethodResult saveCategoryResult)
+    {
+        if (saveCategoryResult.Status)
+        {
+            // Category saved successfully
+            await AlertAsync("Category saved successfully");
+            await LoadCategoriesAsync();
+        }
+        else
+        {
+            // there was some error in saving category
+            await AlertAsync(saveCategoryResult.ErrorMessage!);
+        }
+    }
+    private async Task AlertAsync(string message)
+    {
+        await Js.InvokeVoidAsync("window.alert", message);
+    }
+}
