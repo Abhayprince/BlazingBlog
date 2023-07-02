@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlazingBlog.Data.Entities
 {
@@ -31,5 +32,8 @@ namespace BlazingBlog.Data.Entities
 
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
+
+        [NotMapped]
+        public string CategoryName => Category.Name;
     }
 }
