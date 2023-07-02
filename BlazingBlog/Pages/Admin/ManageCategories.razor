@@ -6,7 +6,7 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
         <h3>Manage Categories</h3>
-        <button class="btn btn-primary btn-sm">+ Add new Category</button>
+        <button class="btn btn-primary btn-sm" @onclick="OpenCategoryFormAsync">+ Add new Category</button>
     </div>
     <hr />
     <table class="table">
@@ -52,8 +52,8 @@
         </tbody>
     </table>
 </div>
-<dialog open>
-    <SaveCategoryForm OnSaveCategory="OnSaveCategory" />
+<dialog id="@_categoryFormDialogId">
+    <SaveCategoryForm OnSaveCategory="OnSaveCategory" OnCloseForm="CloseCategoryFormAsync" />
 </dialog>
 <style type="text/css">
     dialog{
@@ -63,6 +63,7 @@
 </style>
 
 @code {
+    private const string _categoryFormDialogId = "category-form";
     private bool _loading = false;
     private IEnumerable<Category>? _categories = null;
 
@@ -84,6 +85,12 @@
         }
     }
 
+    private async Task OpenCategoryFormAsync() =>
+        await Js.InvokeVoidAsync("window.openModal", _categoryFormDialogId);
+
+    private async Task CloseCategoryFormAsync() => 
+        await Js.InvokeVoidAsync("window.closeModal", _categoryFormDialogId);
+
     private async Task OnSaveCategory(MethodResult saveCategoryResult)
     {
         if (saveCategoryResult.Status)
@@ -91,6 +98,7 @@
             // Category saved successfully
             await AlertAsync("Category saved successfully");
             await LoadCategoriesAsync();
+            await CloseCategoryFormAsync();
         }
         else
         {

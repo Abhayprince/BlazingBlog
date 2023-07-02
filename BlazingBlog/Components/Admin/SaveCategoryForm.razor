@@ -5,7 +5,7 @@
     <div class="card border-0">
         <div class="card-header bg-purple text-white d-flex justify-content-between align-items-center" style="min-width: 250px">
             <h4>Save Category</h4>
-            <button type="button" class="btn btn-sm btn-danger">X</button>
+            <button type="button" class="btn btn-sm btn-danger" @onclick="CloseFormAsync">X</button>
         </div>
         <div class="card-body">
             <div class="mb-3">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-between align-items-center">
-            <button type="button" class="btn btn-sm btn-default">Cancel</button>
+            <button type="button" class="btn btn-sm btn-default" @onclick="CloseFormAsync">Cancel</button>
             <button type="submit" class="btn btn-sm btn-primary">Save</button>
         </div>
     </div>
@@ -31,6 +31,9 @@
     [Parameter]
     public EventCallback<MethodResult> OnSaveCategory { get; set; }
 
+    [Parameter]
+    public EventCallback OnCloseForm{ get; set; }
+
     private Category _categoryModel = new();
 
     private void OnNameBlur()
@@ -39,6 +42,12 @@
         {
             _categoryModel.Slug = _categoryModel.Name.Slugify();
         }
+    }
+
+    private async Task CloseFormAsync()
+    {
+        _categoryModel = new();
+        await OnCloseForm.InvokeAsync();
     }
 
     private async Task SaveCategoryAsync()
