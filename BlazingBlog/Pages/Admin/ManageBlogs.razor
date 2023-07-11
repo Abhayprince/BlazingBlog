@@ -5,7 +5,7 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center">
         <h3>Manage Posts</h3>
-        <NavLink href="CREATE_BLOG_POST_LINK" class="btn btn-primary btn-sm">+ Add new Blog Post</NavLink>
+        <NavLink href="/admin/manage-blogs/new" class="btn btn-primary btn-sm">+ Add new Blog Post</NavLink>
     </div>
     <hr />
     <table class="table">
@@ -32,7 +32,7 @@
                 <tr>
                     <td colspan="7" class="text-center">
                         <h3 class="mb-3">No posts found</h3>
-                        <NavLink href="CREATE_BLOG_POST_LINK">+ Create first blog post</NavLink>
+                        <NavLink href="/admin/manage-blogs/new">+ Create first blog post</NavLink>
                         </td>
                 </tr>
             }
@@ -41,7 +41,8 @@
                 int sno = 1;
                 @foreach (var post in _posts!)
                 {
-                    <tr>
+                    var editBlogLink = $"/admin/manage-blogs/edit/{post.Id}";
+            <tr>
                         <td>@(sno++)</td>
                         <td>@post.Id</td>
                         <td>@post.Title</td>
@@ -63,7 +64,7 @@
                         </td>
                         <td>
                             @*// Edit Post Link*@
-                            <NavLink href="EDIT_BLOG_POST_LINK" class="btn btn-primary btn-sm">Edit</NavLink>
+                            <NavLink href="@editBlogLink" class="btn btn-primary btn-sm">Edit</NavLink>
                         </td>
                     </tr>
                 }

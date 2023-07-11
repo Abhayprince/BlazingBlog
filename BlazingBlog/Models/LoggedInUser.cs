@@ -4,4 +4,4 @@
     {
         public readonly bool IsEmpty => UserId == 0;
     }
-}
+}   
