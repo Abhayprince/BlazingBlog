@@ -12,7 +12,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
 builder.Services.AddTransient<UserService>()
-                .AddTransient<CategoryService>();
+                .AddTransient<CategoryService>()
+                .AddTransient<BlogPostService>();
 
 builder.Services.AddScoped<AuthenticationService>();
 builder.Services.AddScoped<BlogAuthenticationStateProvider>();
