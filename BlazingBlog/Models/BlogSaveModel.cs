@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BlazingBlog.Data.Entities;
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace BlazingBlog.Models
 {
@@ -29,9 +31,31 @@ namespace BlazingBlog.Models
                 Slug = Slug,
                 CategoryId = CategoryId,
                 Introduction = Introduction,
-                Content = Content,
+                Content = Content!,
                 IsPublished = IsPublished,
                 UserId = userId
+            };
+
+        public BlogPost Merge(BlogPost entity)
+        {
+            entity.Title = Title;
+            entity.CategoryId = CategoryId;
+            entity.Introduction = Introduction;
+            entity.Content = Content!;
+            entity.IsPublished = IsPublished;
+            return entity;
+        }
+
+        public static Expression<Func<BlogPost, BlogSaveModel>> Selector =>
+            bp => new BlogSaveModel
+            {
+                Id = bp.Id,
+                Title = bp.Title,
+                Slug = bp.Slug,
+                CategoryId = bp.CategoryId,
+                Introduction = bp.Introduction,
+                Content = bp.Content,
+                IsPublished = bp.IsPublished
             };
     }
 }   

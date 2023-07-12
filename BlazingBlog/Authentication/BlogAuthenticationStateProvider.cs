@@ -39,7 +39,9 @@ namespace BlazingBlog.Authentication
             {
                 claimsPrincipal = GetClaimsPrincipalFromUser(user.Value);
             }
-            return new AuthenticationState(claimsPrincipal);
+            var authState = new AuthenticationState(claimsPrincipal);
+            NotifyAuthenticationStateChanged(Task.FromResult(authState));
+            return authState;
         }
 
         public async Task<string?> LoginAsync(LoginModel loginModel)

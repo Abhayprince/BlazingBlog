@@ -145,6 +145,20 @@
         {
             categories = categoriesList;
         }
+
+        if(BlogId > 0)
+        {
+            // We are in edit mode
+            var dbModel = await BlogPostService.GetPostAsync(BlogId);
+            if(dbModel is null)
+            {
+                errorMessage = "Invalid url";
+            }
+            else
+            {
+                model = dbModel;
+            }
+        }
     }
 
     private async Task SaveBlogAsync()
@@ -168,6 +182,7 @@
             else
             {
                 errorMessage = result.ErrorMessage ?? "Error in saving blog post. Please try again";
+                _isLoading = false;
             }
         }
         catch (Exception ex)
