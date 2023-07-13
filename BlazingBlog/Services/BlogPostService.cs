@@ -37,8 +37,7 @@ namespace BlazingBlog.Services
 
             return await query.ToListAsync();
         }
-            
-
+        
         public async Task<BlogSaveModel?> GetPostAsync(int blogPostId) =>
             await _context.BlogPosts
                         .Include(bp => bp.Category)
@@ -119,5 +118,11 @@ namespace BlazingBlog.Services
                 //throw;
             }
         }
+    
+        public async Task<BlogPost?> GetPostBySlugAsync(string slug) =>
+            await _context.BlogPosts
+                        .Include(bp=> bp.Category)
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(bp => bp.IsPublished && bp.Slug == slug);
     }
 }
