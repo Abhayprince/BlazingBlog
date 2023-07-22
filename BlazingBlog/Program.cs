@@ -22,7 +22,7 @@ builder.Services.AddScoped<AuthenticationStateProvider>(serviceProvider =>
 
 var blogConnectionString = builder.Configuration.GetConnectionString("Blog");
 
-builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(blogConnectionString));
+builder.Services.AddDbContext<BlogContext>(options => options.UseSqlServer(blogConnectionString), ServiceLifetime.Transient);
 
 var app = builder.Build();
 
