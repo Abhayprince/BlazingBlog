@@ -1,6 +1,8 @@
 ﻿@page "/admin/manage-blogs/new"
 @page "/admin/manage-blogs/edit/{urlBlogId:int?}"
 
+@attribute [Authorize]
+
 @using Blazored.TextEditor
 
 @inject CategoryService CategoryService
