@@ -2,7 +2,8 @@
 > BlazingBlog - A fullstack blog web app using Blazor Server, EF Core and SQL Server- .Net 7
 
 ## Screenshots
-Home Page
+
+#### Home Page
 ![Blazing-Blog-Home-Page-Abhay-Prince](https://raw.githubusercontent.com/Abhayprince/BlazingBlog/master/screenshots/1.png)
 
 --------------------------------------------
