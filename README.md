@@ -45,6 +45,7 @@
 ---------------------------------------
 ## Live Coding Video Series of Blazing Chat
 > If you want to see this project build with live coding, checkout the detailed video series on my youtube channel
+> 
 > [Building Blog App with Blazor Server - YouTube](https://www.youtube.com/playlist?list=PLlgYGDJXMjDZa3WCMX31rkyKo6wXUL8qf)
 
 -------------------------------
@@ -53,4 +54,4 @@
 > 
 > Star this Repository
 > 
-> buy me a coffee https://www.buymeacoffee.com/abhayprince
+> <a href="https://www.buymeacoffee.com/abhayprince" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
