@@ -1,5 +1,4 @@
-﻿using BlazingBlog.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BlazingBlog.Data
 {

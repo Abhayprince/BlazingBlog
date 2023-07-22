@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using System.Text.RegularExpressions;
 
 namespace BlazingBlog.Services
 {
@@ -43,6 +41,6 @@ namespace BlazingBlog.Services
             }
         }
 
-        
+
     }
 }

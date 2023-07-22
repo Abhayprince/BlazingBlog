@@ -42,17 +42,6 @@
             }
         </div>
         <div class="col-sm-3">
-            @*<h3>Categories</h3>
-            <hr />
-            <ul class="list-unstyled">
-                @foreach (var category in categories)
-                {
-                    var categoryPostsLink = $"/c/{category.Slug}/posts";
-                    <li class="mb-1 border-bottom p-1">
-                        <NavLink href="@categoryPostsLink" class="text-decoration-none fs-6 py-2">@category.Name</NavLink>
-                    </li>
-                }
-            </ul>*@
             <CategoriesBox />
         </div>
     </div>
@@ -62,8 +51,6 @@
 @code {
     [Parameter]
     public string Slug { get; set; }
-
-    //private IEnumerable<Category> categories = Enumerable.Empty<Category>();
 
     private BlogPost post = new();
     private bool notFound = false;
@@ -82,7 +69,5 @@
                 post = dbBlog;
             }
         }
-        //if (!categories.Any())
-        //    categories = await CategoryService.GetCategoriesAsync();
     }
 }

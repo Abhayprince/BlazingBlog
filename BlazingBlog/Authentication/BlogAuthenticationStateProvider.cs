@@ -1,9 +1,5 @@
-﻿using BlazingBlog.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using System.Diagnostics.Contracts;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BlazingBlog.Authentication
 {

@@ -65,7 +65,6 @@
                             }
                         </td>
                         <td>
-                            @*// Edit Post Link*@
                             <NavLink href="@editBlogLink" class="btn btn-primary btn-sm">Edit</NavLink>
                         </td>
                     </tr>
@@ -85,11 +84,6 @@
         try
         {
             _posts = await BlogPostService.GetPostsAsync();
-        }
-        catch (Exception ex)
-        {
-
-            //throw;
         }
         finally
         {

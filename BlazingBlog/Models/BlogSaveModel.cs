@@ -1,5 +1,4 @@
-﻿using BlazingBlog.Data.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
 namespace BlazingBlog.Models
@@ -24,7 +23,7 @@ namespace BlazingBlog.Models
         public bool IsPublished { get; set; }
 
         public BlogPost ToBlogEntity(int userId) =>
-            new ()
+            new()
             {
                 Id = Id,
                 Title = Title,
@@ -58,4 +57,4 @@ namespace BlazingBlog.Models
                 IsPublished = bp.IsPublished
             };
     }
-}   
+}
