@@ -5,16 +5,20 @@
 Home Page
 ![Blazing-Blog-Home-Page-Abhay-Prince](https://raw.githubusercontent.com/Abhayprince/BlazingBlog/master/screenshots/1.png)
 
-Blog Post Detail Page
+--------------------------------------------
+#### Blog Post Detail Page
 ![Blazing-Blog-Detail-Page-Abhay-Prince](https://raw.githubusercontent.com/Abhayprince/BlazingBlog/master/screenshots/2.png)
 
-Manage Categories Page
+--------------------------------------------
+#### Manage Categories Page
 ![Blazing-Blog-Manage-Categories-Page-Abhay-Prince](https://raw.githubusercontent.com/Abhayprince/BlazingBlog/master/screenshots/3.png)
 
-Manage Blog Posts Page
+--------------------------------------------
+#### Manage Blog Posts Page
 ![Blazing-Blog-Manage-Blog-Page-Abhay-Prince](https://raw.githubusercontent.com/Abhayprince/BlazingBlog/master/screenshots/4.png)
 
-Create/Edit Blog Post Page
+--------------------------------------------
+#### Create/Edit Blog Post Page
 ![Blazing-Blog-Save-Blog-Page-Abhay-Prince](https://raw.githubusercontent.com/Abhayprince/BlazingBlog/master/screenshots/5.png)
 
 ## To Run Locally
@@ -43,7 +47,7 @@ Create/Edit Blog Post Page
 > [Building Blog App with Blazor Server - YouTube](https://www.youtube.com/playlist?list=PLlgYGDJXMjDZa3WCMX31rkyKo6wXUL8qf)
 
 -------------------------------
-
+## Support Me
 > If you like my content and want to support me, 
 > 
 > Star this Repository
