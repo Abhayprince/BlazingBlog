@@ -31,7 +31,7 @@
             }
         </div>
         <div class="col-sm-3">
-            <h3>Categories</h3>
+            @*<h3>Categories</h3>
             <hr />
             <ul class="list-unstyled">
                 @foreach (var category in categories)
@@ -41,7 +41,8 @@
                         <NavLink href="@categoryPostsLink" class="text-decoration-none fs-6 py-2">@category.Name</NavLink>
                     </li>
                 }
-            </ul>
+            </ul>*@
+            <CategoriesBox CategorySlug="@CategorySlug" OnCategoryNameFound="SetHeading" />
         </div>
     </div>
 </div>
@@ -53,25 +54,30 @@
     private string heading = "Latest Posts";
 
     private IEnumerable<BlogPost> posts = Enumerable.Empty<BlogPost>();
-    private IEnumerable<Category> categories = Enumerable.Empty<Category>();
+    //private IEnumerable<Category> categories = Enumerable.Empty<Category>();
 
     protected override async Task OnParametersSetAsync() => await SetDataAsync();
 
     private async Task SetDataAsync()
     {
-
-
         var postsTask = BlogPostService.GetPostsAsync(publishedOnly: true, CategorySlug);
 
-        if (!categories.Any())
-            categories = await CategoryService.GetCategoriesAsync();
-
-        if (!string.IsNullOrWhiteSpace(CategorySlug))
-        {
-            var categoryName = categories.Where(c => c.Slug == CategorySlug).First().Name;
-            heading = $"Latest {categoryName} Posts";
-        }
+        //if (!categories.Any())
+        //    categories = await CategoryService.GetCategoriesAsync();
 
         posts = await postsTask;
+    }
+    private void SetHeading(string? categoryName = null)
+    {
+        if (!string.IsNullOrWhiteSpace(CategorySlug) && !string.IsNullOrWhiteSpace(categoryName))
+        {
+            //var categoryName = categories.Where(c => c.Slug == CategorySlug).First().Name;
+            //heading = $"Latest {categoryName} Posts";
+            heading = $"Latest {categoryName} Posts";
+        }
+        else
+        {
+            heading = "Latest Posts";
+        }
     }
 }
