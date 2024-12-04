@@ -1,0 +1,48 @@
+﻿@inject BlogAuthenticationStateProvider BlogAuthStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="container">
+    <header class="d-flex justify-content-center justify-content-md-between flex-wrap py-3 mb-4 border-white border-bottom border-5">
+        <NavLink href="/" class="text-light text-decoration-none fs-4 fw-bold">Blazing Blog</NavLink>
+
+        <ul class="nav">
+            <li>
+                <NavLink href="/" class="link-light nav-link">Home</NavLink>
+            </li>
+            <li>
+                <NavLink href="/about" class="link-light nav-link">About</NavLink>
+            </li>
+            <AuthorizeView>
+                <Authorized>
+                    <li>
+                        <NavLink href="/admin/manage-categories" class="link-light nav-link">Manage Categories</NavLink>
+                    </li>
+                    <li>
+                        <NavLink href="/admin/manage-blogs" class="link-light nav-link">Manage Blogs</NavLink>
+                    </li>
+                </Authorized>
+            </AuthorizeView>            
+        </ul>
+
+        <div class="text-end">            
+            <AuthorizeView>
+                <Authorizing>Checking auth state...</Authorizing>
+                <Authorized>                    
+                    <NavLink href="javascript:void()" class="btn btn-light disabled">@context.User?.Identity?.Name</NavLink>                    
+                    <button type="button" class="btn btn-primary" @onclick="LogoutAsync">Logout</button>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink href="/login" class="btn btn-primary">Login</NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+    </header>
+</div>
+
+@code {
+    private async Task LogoutAsync()
+    {
+        await BlogAuthStateProvider.LogoutAsync();
+        NavigationManager.NavigateTo("/");
+    }
+}

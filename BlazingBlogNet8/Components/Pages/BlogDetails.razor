@@ -1,0 +1,73 @@
+﻿@page "/posts/{slug}"
+
+@inject BlogPostService BlogPostService;
+@inject CategoryService CategoryService
+
+<PageTitle>@post.Title | BlazingBlog</PageTitle>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            @if (notFound)
+            {
+                <div class="d-flex justify-content-center flex-column align-items-center" style="min-height: 250px">
+                    <h3>Not found</h3>
+                    <NavLink href="/" class="btn btn-primary">Click here to see the latest blog posts</NavLink>
+                </div>
+            }
+            else if(post?.Id > 0)
+            {
+                var color = Utilities.GetRandomColorClass();
+                var categoryTitle = $"{post.CategoryName} Blog Posts";
+                var categoryPostsLink = $"/c/{post.Category.Slug}/posts";
+
+                <h1 class="fs-1 bg-@color text-white p-5 rounded">@post.Title</h1>
+                <small>
+                    <label>
+                        <NavLink href="@categoryPostsLink" class="text-decoration-none" title="@categoryTitle">@post.CategoryName</NavLink>
+                    </label>
+                    <label>
+                        @post.PublishedOn!.Value.ToShortDateString()
+                    </label>
+                </small>
+                <p class="fs-6">@post.Introduction</p>
+                <hr />
+                <div class="main-content">
+                    @((MarkupString)post.Content)
+                </div>
+            }
+            else
+            {
+                <p>Fetching blog post...</p>
+            }
+        </div>
+        <div class="col-sm-3">
+            <CategoriesBox />
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public string Slug { get; set; }
+
+    private BlogPost post = new();
+    private bool notFound = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(Slug))
+        {
+            var dbBlog = await BlogPostService.GetPostBySlugAsync(Slug);
+            if(dbBlog is null)
+            {
+                notFound = true;
+            }
+            else
+            {
+                post = dbBlog;
+            }
+        }
+    }
+}

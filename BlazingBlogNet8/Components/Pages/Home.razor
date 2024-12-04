@@ -1,0 +1,66 @@
+﻿@page "/"
+@page "/c/{categorySlug}/posts"
+
+@inject BlogPostService BlogPostService
+@inject CategoryService CategoryService
+
+<PageTitle>@heading | BlazingBlog</PageTitle>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <h1 class="fs-3">@heading</h1>
+            <hr />
+            @if (!posts.Any())
+            {
+                <div class="d-flex justify-content-center flex-column align-items-center" style="min-height: 250px">
+                    <h3>No blog posts found</h3>
+                    <AuthorizeView>
+                        <Authorized>
+                            <NavLink href="/admin/manage-blogs/new" class="btn btn-primary">Click here to create a new blog post</NavLink>
+                        </Authorized>
+                        <NotAuthorized>
+                            <p>Please check back later</p>
+                        </NotAuthorized>
+                    </AuthorizeView>
+                </div>
+            }
+            else
+            {
+                <BlogPostsList Posts="posts" />
+            }
+        </div>
+        <div class="col-sm-3">
+            <CategoriesBox CategorySlug="@CategorySlug" OnCategoryNameFound="SetHeading" />
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public string? CategorySlug { get; set; }
+
+    private string heading = "Latest Posts";
+
+    private IEnumerable<BlogPost> posts = Enumerable.Empty<BlogPost>();
+
+    protected override async Task OnParametersSetAsync() => await SetDataAsync();
+
+    private async Task SetDataAsync()
+    {
+        var postsTask = BlogPostService.GetPostsAsync(publishedOnly: true, CategorySlug);
+
+        posts = await postsTask;
+    }
+    private void SetHeading(string? categoryName = null)
+    {
+        if (!string.IsNullOrWhiteSpace(CategorySlug) && !string.IsNullOrWhiteSpace(categoryName))
+        {
+            heading = $"Latest {categoryName} Posts";
+        }
+        else
+        {
+            heading = "Latest Posts";
+        }
+    }
+}
