@@ -1,0 +1,93 @@
+﻿@page "/admin/manage-blogs"
+
+@attribute [Authorize]
+
+@inject BlogPostService BlogPostService
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Manage Posts</h3>
+        <NavLink href="/admin/manage-blogs/new" class="btn btn-primary btn-sm">+ Add new Blog Post</NavLink>
+    </div>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Created/Modified</th>
+                <th>Published</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_isLoading)
+            {
+                <tr>
+                    <td colspan="7" class="text-center">Loading blog posts...</td>
+                </tr>
+            }
+            else if(!_isLoading && (_posts is null || !_posts.Any()))
+            {
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <h3 class="mb-3">No posts found</h3>
+                        <NavLink href="/admin/manage-blogs/new">+ Create first blog post</NavLink>
+                        </td>
+                </tr>
+            }
+            else
+            {
+                int sno = 1;
+                @foreach (var post in _posts!)
+                {
+                    var editBlogLink = $"/admin/manage-blogs/edit/{post.Id}";
+            <tr>
+                        <td>@(sno++)</td>
+                        <td>@post.Id</td>
+                        <td>@post.Title</td>
+                        <td>@post.CategoryName</td>
+                        <td>
+                            @(post.ModifiedOn.HasValue 
+                                ? post.ModifiedOn.Value.ToShortDateString()
+                                : post.CreatedOn.ToShortDateString())
+                        </td>
+                        <td>
+                            @if (post.IsPublished)
+                            {
+                                <span class="text-success">Yes</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">No</span>
+                            }
+                        </td>
+                        <td>
+                            <NavLink href="@editBlogLink" class="btn btn-primary btn-sm">Edit</NavLink>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private bool _isLoading = false;
+    private IEnumerable<BlogPost>? _posts = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _isLoading = true;
+        try
+        {
+            _posts = await BlogPostService.GetPostsAsync();
+        }
+        finally
+        {
+            _isLoading = false;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+﻿
+<ul class="list-unstyled">
+    @foreach (var post in Posts)
+    {
+        var categoryTitle = $"{post.CategoryName} Blog Posts";
+        var categoryPostsLink = $"/c/{post.Category.Slug}/posts";
+        var color = Utilities.GetRandomColorClass();
+
+        var detailPageUrl = $"/posts/{post.Slug}";
+
+        <li class="mb-3">
+            <div class="row">
+                <div class="col-sm-2 bg-@color rounded d-flex justify-content-center align-items-center">
+                    <label class="fs-1 text-uppercase text-white">@Utilities.GetInitials(post.Title)</label>
+                </div>
+                <div class="col-sm-10 bg-@color bg-opacity-10">
+                    <h2>
+                        <NavLink href="@detailPageUrl" class="text-decoration-none text-dark fs-5" title="@post.Title">@post.Title</NavLink>
+                    </h2>
+                    <small>
+                        <label>
+                            <NavLink href="@categoryPostsLink" class="text-decoration-none" title="@categoryTitle">@post.CategoryName</NavLink>
+                        </label>
+                        <label>
+                            @post.PublishedOn!.Value.ToShortDateString()
+                        </label>
+                    </small>
+                    <p class="fs-6">@post.Introduction</p>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    [Parameter]
+    public IEnumerable<BlogPost> Posts { get; set; } = Enumerable.Empty<BlogPost>();
+}

@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Blazored.TextEditor" Version="1.1.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Components\Layout\MainLayout.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Layout\TopNavBar.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Pages\Counter.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Pages\Error.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Pages\Home.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Pages\Login.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Pages\Weather.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Routes.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Shared\Admin\SaveCategoryForm.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Shared\BlogPostsList.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\Shared\CategoriesBox.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	  <Content Update="Components\_Imports.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
+
+	
+</Project>
